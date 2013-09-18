@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Case Manager Dashboard</title>
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta name="viewport" content="width=1024">
+	<meta name="description" content="">
+	<meta name="author" content="Himanshu Chaudhary">
+	<meta name="viewport" content="width=1024">
+	
+	<!-- CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
+	<link href="css/entypo.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+</head>
+<body>
+	<!-- Notifications -->
+	<div id="notification"></div>
+
+	<!-- Site Shade & Modal -->
+	<div class="shade">
+		<div class="modal">
+			<i class="icon-cancel" onclick="hideModal()"></i>
+			<h3 class="center-text">Send Message</h3>
+			<div class="row">
+				<textarea class="col-12" placeholder="message..." rows="7"></textarea>
+				<button class="btn row col-12 blue-bg" onclick="hideModal()">Submit</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Website Wrap -->
+	<section id="wrap">
+	
+		<!-- Page Header -->
+		<header>
+			<a href="./" class="logo pull-left"></a>
+			<div id="login_links" class="pull-right">
+				<!-- Login Links Will Go Here -->
+			</div>
+		</header>
+	
+		<!-- Main Page -->
+		<article class="page">
+			
+			<!-- Sidebar Menu -->
+			<div class="sidebar">
+				<a id="search_link" href="#search"><i class="icon-search"></i>Search</a>
+				<a href="#cases"><i class="icon-archive"></i>Cases<span class="badge red-bg">4</span></a>
+				<a href="#messages"><i class="icon-calendar"></i>Calendar</a>
+				<a href="#account"><i class="icon-user"></i>Account</a>
+				<a href="#support"><i class="icon-lifebuoy"></i>Support</a>
+			</div>
+
+			<!-- Ajax Content -->
+			<div id="ajax_content" class="content">
+				
+			</div>
+			
+		</article>
+		
+		<!-- Footer -->
+		<footer>
+			<div class="pull-left">
+				<a href="#about">About</a>
+				<a href="#support">Support</a>
+				<a href="#jobs">Jobs</a>
+				<a href="#privacy">Privacy</a>
+				<a href="#terms">Terms</a>
+			</div>
+			<div class="pull-right copyright">&copy; 2PointOnline</div>
+		</footer>
+	</section>
+
+	<!-- Javascript -->
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+		/* Disable caching of AJAX responses */
+		$.ajaxSetup ({
+		    cache: false
+		});
+
+		/* Params */
+		var params = {};
+
+		/* Load Content on URL Change */
+		$(window).on('ready hashchange', loadContent);
+
+		/* Update Height */
+		$(window).on('ready resize', resizeHeight);
+
+		/* Check Login */
+		var checkLogin = (function() {
+			if (sessionStorage.signed_in) {
+				$('#ajax_content').addClass('show-sidebar');
+				$('.sidebar').removeClass('hidden');
+				$('#login_links').html(	'<a href="#account">Les Shute</a>' +
+										'<a onclick="signOut()">Sign Out</a>');
+			}
+			else {
+				$('.sidebar').addClass('hidden');
+				$('#ajax_content').removeClass('show-sidebar');
+				$('#login_links').html(	'<a href="signup">Sign Up</a>' +
+										'<a href="signin">Sign In</a>');
+			}
+		})();
+
+		/* Resize Window Height */
+		function resizeHeight() {
+			$('#ajax_content').css('height', ($(window).height() - 80) + 'px');
+		}
+
+		/* Get URL Params */
+		function getParams() {
+			var data = window.location.hash.split(';');
+			
+			for (var i = 1; i < data.length; i++) {
+				var p = data[i].split('=');
+				params[p[0]] = p[1];
+			}
+		}
+
+		/* Load Ajax Content */
+		function loadContent() {
+			var page = window.location.hash.replace('#','').split(';')[0];
+			getParams();
+
+			$('#ajax_content').load(page + '.html', function(data, status) {
+				/* Load search page by default */
+		        if (status == 'error') { 
+		        	location.href = '#search'; 
+		        }
+
+		        /* Update Links */
+		        $('.page .sidebar a').removeClass('active');
+		    	$('a[href^="#' + page + '"]').addClass('active');
+			});
+		}
+
+		/* Sign Out */
+		function signOut() {
+			$('#notification').removeClass().html('You have successfully signed out!').addClass('show green-bg');
+			setTimeout(function() {
+				delete sessionStorage.signed_in;
+				location.href = "./";
+			}, 750);
+		}
+
+		/* Show Modal */
+		function showModal() {
+			$('.shade, .modal').addClass('show');
+		}
+
+		/* Hide Modal */
+		function hideModal() {
+			$('.shade, .modal').removeClass('show');
+		}
+	</script>
+</body>
+</html>

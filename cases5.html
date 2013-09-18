@@ -1,0 +1,69 @@
+<div class="row">
+	<div class="progress col-2">
+		<div class="circle done"><i class="icon-check"></i></div> 
+		<div class="title done">Patient</div>
+		<div class="bar done"></div><br>
+		<div class="circle done"><i class="icon-check"></i></div>
+		<div class="title done">Adjuster &<br>Case Manager</div>
+		<div class="bar done"></div><br>
+		<div class="circle done"><i class="icon-check"></i></div>
+		<div class="title done">Physician</div>
+		<div class="bar done"></div><br>
+		<div class="circle done"><i class="icon-check"></i></div>
+		<div class="title done">Injury &<br>Appointment</div>
+		<div class="bar done"></div><br>
+		<div class="circle active">5</div>
+		<div class="title active">Review</div>
+	</div>
+
+	<div class="col-10">
+		<div class="row">
+			<div class="center-text hidden">
+				<span class="faded-title">Review Case</span>
+				<hr>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="blue-text normal-text large-text border-bottom">Patient</div>
+					<div class="medium-text dark-text">Alexandra Devereaux</div>
+					<div class="light-text small-text">123 Happy St <br>Pleasantville, FL 32806</div>
+				</div>
+				<div class="col-6">
+					<div class="blue-text normal-text large-text border-bottom">Physician</div>
+					<div class="medium-text dark-text">Dr. John Feelgood</div>
+					<div class="green-text">Surgical Nirvana Associates</div>
+					<div class="light-text">250 Motley Ln <br>Pleasantville, FL 32806</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="blue-text normal-text large-text border-bottom">Ajduster</div>
+					<div class="medium-text dark-text">Barbara Smith</div>
+					<div class="green-text">Risk Management Specialities</div>
+					<div class="light-text">999 Corporate Way <br>Boston, MA 02128</div>
+				</div>
+				<div class="col-6">
+					<div class="blue-text normal-text large-text border-bottom">Case Manager</div>
+					<div class="medium-text dark-text">N/A</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<a href="#cases4"  class="btn col-4 offset-4">Back</a>
+			<a onclick="submitCase()"  class="btn green-bg col-4">Submit</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function submitCase() {
+		$('#notification').removeClass().html('Submitting case...').addClass('show blue-bg');
+		setTimeout(function() {
+			$('#notification').removeClass().html('You case has been submitted!').addClass('show green-bg');
+		}, 1200);
+		setTimeout(function() {
+			$('#notification').removeClass();
+			location.href = '#cases';
+		}, 2400);
+	}
+</script>

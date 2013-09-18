@@ -1,0 +1,300 @@
+<div class="row">
+	<!-- Search Results Will Go Here -->
+	<div id="search_results" class="col-8">
+		<div class="row">
+			<div class="col-8 medium-text blue-text normal-text input-heigh">Search Results - 32806</div>
+			<div class="col-4 right-text">Sort by Relevance<i class="icon-down-open-mini inline"></i></div>
+		</div>
+		<hr>
+	</div>
+	
+	<div id="search_form" class="col-4">
+		<div class="row">
+			<div class="medium-text blue-text normal-text center-text">Search for Vendors</div>
+			<hr>
+		</div>
+
+		<!-- Search Form -->
+		<div class="row">
+			<label>Speciality</label>
+			<select id="speciality">
+				<option value="0">All</option>
+				<option value="1">Dentist</option>
+				<option value="2">Diagnostic Imaging</option>
+				<option value="3">DME</option>
+				<option value="4">FCE</option>
+				<option value="5">Home Health</option>
+				<option value="6">Pain Management</option>
+				<option value="7">PT / OT</option>
+				<option value="8">MSA</option>
+				<option value="9">Translation</option>
+			</select>
+		</div>
+		<div class="row">
+			<label>Address</label>
+			<input id="location" type="text" placeholder="street, zip" value="32806"/>
+		</div>
+		<div class="row center-text">
+			<span class="white-bg normal-text faded-border">OR</span>
+			<hr>
+		</div>
+		<div class="row">
+			<label>Facility Name</label>
+			<input id="location" type="text" placeholder="facility name" />
+		</div>
+		<div class="row">
+			<button class="btn blue-bg col-12" onclick="doSearch()"><i class="icon-search inline"></i> Search</button>
+		</div>
+
+		<!-- Google Maps -->
+		<hr id="map_top">
+		<div id="map_canvas" class="border row"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var vendors = [
+		{
+			id: '1',
+			name: 'Center for Diagnostic Imaging',
+			address1: '1781 Park Center Dr',
+			address2: 'Suite 110',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32835',
+			phone: '(407) 612-6074',
+			services: ['MRI', 'CT', 'Bone Density', 'US', 'Injections'],
+			speciality: ['2'],
+			price: '$375+'
+		},
+		{
+			id: '2',
+			name: 'Orlando Sports Medicine Group',
+			address1: '12780 Waterford Lakes Pkwy',
+			address2: '#115',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32828',
+			phone: '(407) 207-7188',
+			services: ['PT'],
+			speciality: ['7'],
+			price: '$65+'
+		},
+		{
+			id: '3',
+			name: 'Orlando Orthopaedic Center',
+			address1: '25 W Crystal Lake St',
+			address2: 'Suite 200',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32806',
+			phone: '(407) 254-2558',
+			services: ['PT', 'OT'],
+			speciality: ['7'],
+			price: '$90+'
+		},
+		{
+			id: '4',
+			name: 'Physiotherapy Works',
+			address1: '1860 State Rd 436',
+			address2: 'Suite 1000',
+			city: 'Winter Park',
+			state: 'FL',
+			zip: '32792',
+			phone: '(407) 657-5029',
+			services: ['PT', 'OT'],
+			speciality: ['7'],
+			price: '$75+'
+		},
+		{
+			id: '5',
+			name: 'Vissers Physical Therapy',
+			address1: '7601 Della Dr',
+			address2: 'Suite 3',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32819',
+			phone: '(407) 903-9444',
+			services: ['PT'],
+			speciality: ['7'],
+			price: '$60+'
+		},
+		{
+			id: '6',
+			name: 'Cora Health Services',
+			address1: '3861 Oak Waters Cir',
+			address2: 'Suite 1',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32806',
+			phone: '(407) 481-8861',
+			services: ['PT', 'OT'],
+			speciality: ['7'],
+			price: '$80+'
+		},
+		{
+			id: '7',
+			name: 'Select Physical Therapy',
+			address1: '706 W Grand Hwy',
+			address2: '',
+			city: 'Clermont',
+			state: 'FL',
+			zip: '34711',
+			phone: '(352) 242-0900',
+			services: ['PT'],
+			speciality: ['7'],
+			price: '$85+'
+		},
+		{
+			id: '8',
+			name: 'Baseline Rehabilitation',
+			address1: '1400 S Orland Ave',
+			address2: 'Suite 207',
+			city: 'Winter Park',
+			state: 'FL',
+			zip: '32789',
+			phone: '(407) 539-2953',
+			services: ['PT'],
+			speciality: ['7'],
+			price: '$75+'
+		},
+		{
+			id: '9',
+			name: 'Premier Advanced Imaging of Orlando',
+			address1: '1925 N Mills Ave',
+			address2: '',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32803',
+			phone: '(407) 895-9110',
+			services: ['MRI', 'CT'],
+			speciality: ['2'],
+			price: '$425+'
+		},
+		{
+			id: '10',
+			name: 'Stand Up MRI of Orlando',
+			address1: '2010 S Orange Ave',
+			address2: '',
+			city: 'Orlando',
+			state: 'FL',
+			zip: '32806',
+			phone: '(800) 872-2875',
+			services: ['MRI', 'CT'],
+			speciality: ['2'],
+			price: '$450+'
+		},
+		{
+			id: '11',
+			name: 'Boston Diagnostic Imaging',
+			address1: '398 E. Altamonte Dr',
+			address2: '',
+			city: 'Altamonte Springs',
+			state: 'FL',
+			zip: '32806',
+			phone: '(407) 331-9355',
+			services: ['MRI', 'CT', 'Ultrasound'],
+			speciality: ['2'],
+			price: '$450+'
+		}
+	];
+
+	var map, geocoder;
+
+	/* Initialize Google Map */
+	var initializeMap = (function() {
+		geocoder = new google.maps.Geocoder();
+		
+		var mapOptions = {
+			zoom: 10,
+			disableDefaultUI: true,
+			center: new google.maps.LatLng(28.5148, -81.3605),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+	})();
+
+	/* Add Vendor Markers To Map */
+	function addMarker(address, name) {
+		geocoder.geocode( {'address' : address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				var infowindow = new google.maps.InfoWindow({
+				    content: "<a href='#details'>" + name +  "</a>",
+				    maxWidth: 200
+				});
+				var marker = new google.maps.Marker({
+					map: map,
+					position: results[0].geometry.location,
+					title: name
+				});
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map, marker);
+				});
+			} 
+			else {
+				console.log('no location for ' + address);
+			}
+		});
+	}
+
+	/* Show Results */
+	vendors.forEach(function(vendor, i) {
+		if (vendor.speciality.indexOf(params.speciality) != -1 || params.speciality == 0) {
+			row  = 	'<div class="row vendor">' +
+						'<div class="thumbnail col-5">' +
+							'<img src="img/vendor/' + vendor.id + '_main.jpg" class="shadow rounded" style="height: 180px;"/>' +
+							'<a href="#details">' + vendor.name + '</a>' +
+						'</div>' +
+						'<div class="col-4">' +
+							'<div class="hidden" title="Distance"><i class="icon-location inline"></i> 1.8 miles</div>' +
+							'<div class="address" title="Address">' + vendor.address1 + ', ' + vendor.address2 + ' <br>' + vendor.city + ', ' + vendor.state + ' ' + vendor.zip + '</div>' +
+							'<div>' + vendor.phone + '</div>' +
+							'<div class="services"><span class="normal-text">Services: </span> ' + vendor.services.join(', ') + '</div>' +
+							'<div class="hours"><span class="normal-text">Hours: </span> 9:00am - 5:00pm</div>' +
+							'<div class="languages"><span class="normal-text" title="Languages">Languages: </span> English, Spanish</div>' +
+							'<div class="details hidden"><a href="#details" class="btn green-bg">Make Referral</a><span title="Service Prices From" class="price large-text normal-text hidden"> $450+</span></div>' +
+							'<div class="star hidden"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></div>' +
+						'</div>' +
+						'<div class="col-3 details">' +
+							'<div title="Service Prices From" class="price dark-text right-text hidden">' + vendor.price + '</div>' +
+							'<a href="#details" class="btn green-bg pull-right">View Details</a>' +
+							'<div class="star pull-right"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></div>' +
+						'</div>' +
+					'</div><hr>';
+
+			$('#search_results').append(row);
+
+			/* Add Marker For Vendor */
+			addMarker((vendor.address1 + ', ' + vendor.city + ', ' + vendor.state), vendor.name);
+		}
+	});
+
+	function doSearch() {
+		var search_url = '#search;zip=' + $('#location').val() + ';speciality=' + $('#speciality').val();
+		location.href = search_url;
+		$('#search_link').attr('href', search_url);
+	}
+
+	if (params.zip) {
+		$('#location').val(params.zip);
+	}
+	if (params.speciality) {
+		$('#speciality option[value="' + params.speciality + '"]').prop('selected', true);
+	}
+	if (sessionStorage.signed_in) {
+		$('.price').show();
+	}
+
+	/* Fix map on top on scroll */
+	var map_top = $('#map_top');
+	var	map_canvas = $('#map_canvas');
+	$('#ajax_content').scroll(function() {
+		if (map_top.offset().top < 54) {
+			map_canvas.addClass('fixed').css('width', map_top.width() + 'px');
+		}
+		else if (map_canvas.hasClass('fixed')) {
+			map_canvas.removeClass('fixed').css('width','auto');
+		}
+	});
+</script>

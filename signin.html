@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Sign In To 2Point</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Himanshu Chaudhary">
+	
+	<!-- CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+	<link href="css/entypo.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<section id="wrap">
+		<div class="row" style="margin-top: 80px;">
+			<div class="col-4 offset-4 login-form">
+				<h2 class="center-text faded-border">Sign In</h2>
+				<hr>
+				<div class="row">
+					<label for="username">Username</label><a href="#username" class="pull-right small">Forgot Username?</a>
+					<input id="username" type="text" placeholder="username"/>
+				</div>
+				<div class="row">
+					<label for="password">Password</label><a href="#password" class="pull-right small">Forgot Password?</a>
+					<input id="password" type="password" placeholder="password"/>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						<label class="input-height"><input type="checkbox" value="remember"/>  Remember Me</label>
+					</div>
+					<a href="./#search"  class="btn blue-bg large-text col-4" onclick="signIn()">Sign In</a>
+				</div>
+				<hr>
+				<div class="row center-text input-height border">
+					Need an account? <a href="./signup">Sign Up</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script type="text/javascript">
+		function signIn() {
+			sessionStorage.signed_in = true;
+		}
+	</script>
+</body>
